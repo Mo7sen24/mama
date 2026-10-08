@@ -79,15 +79,8 @@ body {
 
     z-index: 100;
 
-    background:
-        radial-gradient(circle at center,
-        rgba(255,255,255,.08),
-        transparent 40%),
-        linear-gradient(
-            145deg,
-            #151311,
-            #282019
-        );
+    /* مهم: شفافة علشان الفيديو يظهر تحتها */
+    background: transparent;
 
     display: flex;
     flex-direction: column;
@@ -104,42 +97,13 @@ body {
         visibility 1.4s;
 }
 
+/* لما المستخدم يضغط */
+
 .opening.hide {
     opacity: 0;
     transform: scale(1.08);
     visibility: hidden;
     pointer-events: none;
-}
-
-/* Golden glow */
-
-.opening::before {
-    content: "";
-    position: absolute;
-
-    width: 300px;
-    height: 300px;
-
-    border-radius: 50%;
-
-    background: rgba(200,164,93,.12);
-
-    filter: blur(80px);
-
-    animation: glowPulse 4s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-
-    0%,100% {
-        transform: scale(.8);
-        opacity: .4;
-    }
-
-    50% {
-        transform: scale(1.2);
-        opacity: .8;
-    }
 }
 
 /* =========================
@@ -153,6 +117,11 @@ body {
     text-align: center;
 
     animation: openingAppear 1.5s ease forwards;
+
+    /* ظل بسيط للنص فوق الفيديو */
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.75),
+        0 0 20px rgba(0,0,0,.45);
 }
 
 @keyframes openingAppear {
@@ -195,7 +164,8 @@ body {
     line-height: 1.2;
 
     text-shadow:
-        0 0 20px rgba(200,164,93,.25);
+        0 0 20px rgba(200,164,93,.25),
+        0 3px 10px rgba(0,0,0,.7);
 
     margin-bottom: 28px;
 }
@@ -371,6 +341,9 @@ body {
     color: #f4ead3;
 
     animation: textPulse 2s ease-in-out infinite;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.8);
 }
 
 @keyframes textPulse {
@@ -388,9 +361,12 @@ body {
 
     font-size: 11px;
 
-    color: rgba(255,255,255,.5);
+    color: rgba(255,255,255,.75);
 
     letter-spacing: 1px;
+
+    text-shadow:
+        0 2px 6px rgba(0,0,0,.8);
 }
 
 /* Touch circle */
@@ -465,20 +441,18 @@ body {
 
     background: #000;
 
-    opacity: 0;
-
-    visibility: hidden;
-
-    transition:
-        opacity .8s ease,
-        visibility .8s ease;
-}
-
-.video-wrapper.active {
-
+    /*
+       الفيديو ظاهر من البداية
+       لكن التشغيل متوقف
+    */
     opacity: 1;
 
     visibility: visible;
+
+    transition:
+        opacity .8s ease,
+        visibility .8s ease,
+        transform .9s ease;
 }
 
 .video-wrapper video {
@@ -487,6 +461,8 @@ body {
     height: 100%;
 
     object-fit: cover;
+
+    display: block;
 }
 
 /* =========================
@@ -1136,7 +1112,27 @@ body {
 <div class="container">
 
     <!-- =========================
+         VIDEO
+    ========================== -->
+
+    <div class="video-wrapper" id="videoWrapper">
+
+        <video
+            id="doorVideo"
+            playsinline
+            preload="auto"
+        >
+
+            <source src="vediooo.mp4" type="video/mp4">
+
+        </video>
+
+    </div>
+
+
+    <!-- =========================
          OPENING SCREEN
+         شفاف فوق الفيديو
     ========================== -->
 
     <div class="opening" id="opening">
@@ -1182,25 +1178,6 @@ body {
         </div>
 
         <div class="touch-indicator"></div>
-
-    </div>
-
-
-    <!-- =========================
-         VIDEO
-    ========================== -->
-
-    <div class="video-wrapper" id="videoWrapper">
-
-        <video
-            id="doorVideo"
-            playsinline
-            preload="auto"
-        >
-
-            <source src="vediooo.mp4" type="video/mp4">
-
-        </video>
 
     </div>
 
@@ -1438,30 +1415,43 @@ body {
     </main>
 
 </div>
+
+
 <script>
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+/* ==========================================
+   ELEMENTS
+========================================== */
 
-const opening = document.getElementById("opening");
-const videoWrapper = document.getElementById("videoWrapper");
-const video = document.getElementById("doorVideo");
-const content = document.getElementById("mainContent");
-const particles = document.getElementById("particles");
+const opening =
+    document.getElementById("opening");
+
+const videoWrapper =
+    document.getElementById("videoWrapper");
+
+const video =
+    document.getElementById("doorVideo");
+
+const content =
+    document.getElementById("mainContent");
+
+const particles =
+    document.getElementById("particles");
 
 let started = false;
 
 
-// ==========================================
-// BACKGROUND PARTICLES
-// ==========================================
+/* ==========================================
+   BACKGROUND PARTICLES
+========================================== */
 
 for (let i = 0; i < 22; i++) {
 
-    const particle = document.createElement("div");
+    const particle =
+        document.createElement("div");
 
-    particle.className = "particle";
+    particle.className =
+        "particle";
 
     particle.style.left =
         Math.random() * 100 + "%";
@@ -1475,20 +1465,22 @@ for (let i = 0; i < 22; i++) {
     const size =
         2 + Math.random() * 4;
 
-    particle.style.width = size + "px";
-    particle.style.height = size + "px";
+    particle.style.width =
+        size + "px";
+
+    particle.style.height =
+        size + "px";
 
     particles.appendChild(particle);
 }
 
 
-// ==========================================
-// START INVITATION
-// ==========================================
+/* ==========================================
+   START INVITATION
+========================================== */
 
-function startInvitation(event) {
+function startInvitation() {
 
-    // منع التشغيل أكثر من مرة
     if (started) return;
 
     started = true;
@@ -1496,27 +1488,16 @@ function startInvitation(event) {
     console.log("Invitation started");
 
 
-    // ======================================
-    // إظهار الفيديو أولًا
-    // ======================================
+    /* ================================
+       إخفاء الكتابة فوق الفيديو
+    ================================= */
 
-    videoWrapper.classList.add("active");
-
-
-    // ======================================
-    // إخفاء شاشة "خبط على الباب"
-    // ======================================
-
-    setTimeout(() => {
-
-        opening.classList.add("hide");
-
-    }, 100);
+    opening.classList.add("hide");
 
 
-    // ======================================
-    // تجهيز الفيديو
-    // ======================================
+    /* ================================
+       تجهيز الفيديو
+    ================================= */
 
     video.currentTime = 0;
 
@@ -1525,11 +1506,12 @@ function startInvitation(event) {
     video.playsInline = true;
 
 
-    // ======================================
-    // تشغيل الفيديو
-    // ======================================
+    /* ================================
+       تشغيل الفيديو
+    ================================= */
 
-    const playPromise = video.play();
+    const playPromise =
+        video.play();
 
 
     if (playPromise !== undefined) {
@@ -1537,7 +1519,9 @@ function startInvitation(event) {
         playPromise
             .then(() => {
 
-                console.log("Video is playing successfully");
+                console.log(
+                    "Video is playing successfully"
+                );
 
             })
             .catch((error) => {
@@ -1547,20 +1531,13 @@ function startInvitation(event) {
                     error
                 );
 
-                /*
-                 لو الفيديو لم يعمل،
-                 نرجع شاشة البداية
-                */
-
                 started = false;
 
                 opening.classList.remove("hide");
 
-                videoWrapper.classList.remove("active");
-
                 alert(
                     "الفيديو لم يعمل.\n\n" +
-                    "تأكد أن ملف vedioo0.mp4 موجود بجانب ملف HTML."
+                    "تأكد أن ملف vediooo.mp4 موجود بجانب ملف HTML."
                 );
 
             });
@@ -1570,51 +1547,45 @@ function startInvitation(event) {
 }
 
 
-// ==========================================
-// TOUCH
-// ==========================================
-
-// أول لمسة على الشاشة
+/* ==========================================
+   TOUCH
+========================================== */
 
 opening.addEventListener(
     "touchstart",
     startInvitation,
     {
-        passive: true,
-        once: true
+        passive: true
     }
 );
 
 
-// ==========================================
-// CLICK
-// ==========================================
-
-// للكمبيوتر
+/* ==========================================
+   CLICK
+========================================== */
 
 opening.addEventListener(
     "click",
-    startInvitation,
-    {
-        once: true
-    }
+    startInvitation
 );
 
 
-// ==========================================
-// VIDEO ENDED
-// ==========================================
+/* ==========================================
+   VIDEO ENDED
+========================================== */
 
 video.addEventListener(
     "ended",
     function () {
 
-        console.log("Video finished");
+        console.log(
+            "Video finished"
+        );
 
 
-        // ==================================
-        // إخفاء الفيديو
-        // ==================================
+        /* ================================
+           إخفاء الفيديو
+        ================================= */
 
         videoWrapper.style.opacity = "0";
 
@@ -1622,13 +1593,14 @@ video.addEventListener(
             "scale(1.05)";
 
 
-        // ==================================
-        // إظهار الدعوة
-        // ==================================
+        /* ================================
+           إظهار الدعوة
+        ================================= */
 
         setTimeout(() => {
 
-            videoWrapper.classList.remove("active");
+            videoWrapper.style.visibility =
+                "hidden";
 
             content.classList.add("active");
 
@@ -1642,9 +1614,9 @@ video.addEventListener(
 );
 
 
-// ==========================================
-// VIDEO ERROR
-// ==========================================
+/* ==========================================
+   VIDEO ERROR
+========================================== */
 
 video.addEventListener(
     "error",
@@ -1658,7 +1630,7 @@ video.addEventListener(
         alert(
             "حصل خطأ في تحميل الفيديو.\n\n" +
             "تأكد من أن اسم الفيديو:\n" +
-            "vedioo0.mp4\n\n" +
+            "vediooo.mp4\n\n" +
             "وأنه موجود في نفس فولدر ملف HTML."
         );
 
@@ -1666,9 +1638,9 @@ video.addEventListener(
 );
 
 
-// ==========================================
-// COUNTDOWN
-// ==========================================
+/* ==========================================
+   COUNTDOWN
+========================================== */
 
 const weddingDate =
     new Date(
@@ -1685,7 +1657,9 @@ function updateCountdown() {
         weddingDate - now;
 
 
-    // لو التاريخ انتهى
+    /* ================================
+       لو التاريخ انتهى
+    ================================= */
 
     if (distance <= 0) {
 
@@ -1705,7 +1679,9 @@ function updateCountdown() {
     }
 
 
-    // الأيام
+    /* ================================
+       الأيام
+    ================================= */
 
     const days =
         Math.floor(
@@ -1714,7 +1690,9 @@ function updateCountdown() {
         );
 
 
-    // الساعات
+    /* ================================
+       الساعات
+    ================================= */
 
     const hours =
         Math.floor(
@@ -1724,7 +1702,9 @@ function updateCountdown() {
         );
 
 
-    // الدقائق
+    /* ================================
+       الدقائق
+    ================================= */
 
     const minutes =
         Math.floor(
@@ -1734,7 +1714,9 @@ function updateCountdown() {
         );
 
 
-    // الثواني
+    /* ================================
+       الثواني
+    ================================= */
 
     const seconds =
         Math.floor(
@@ -1744,22 +1726,21 @@ function updateCountdown() {
         );
 
 
-    // تحديث الشاشة
+    /* ================================
+       تحديث الشاشة
+    ================================= */
 
     document.getElementById("days")
         .textContent =
         String(days).padStart(2, "0");
 
-
     document.getElementById("hours")
         .textContent =
         String(hours).padStart(2, "0");
 
-
     document.getElementById("minutes")
         .textContent =
         String(minutes).padStart(2, "0");
-
 
     document.getElementById("seconds")
         .textContent =
@@ -1768,7 +1749,9 @@ function updateCountdown() {
 }
 
 
-// تشغيل الـ Countdown
+/* ==========================================
+   تشغيل الـ Countdown
+========================================== */
 
 updateCountdown();
 
@@ -1781,4 +1764,3 @@ setInterval(
 
 </body>
 </html>
-```
