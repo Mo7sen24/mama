@@ -1438,15 +1438,24 @@ body {
     </main>
 
 </div>
-
-
 <script>
 
-/* =========================================
-   CREATE PARTICLES
-========================================= */
+// ==========================================
+// ELEMENTS
+// ==========================================
 
+const opening = document.getElementById("opening");
+const videoWrapper = document.getElementById("videoWrapper");
+const video = document.getElementById("doorVideo");
+const content = document.getElementById("mainContent");
 const particles = document.getElementById("particles");
+
+let started = false;
+
+
+// ==========================================
+// BACKGROUND PARTICLES
+// ==========================================
 
 for (let i = 0; i < 22; i++) {
 
@@ -1463,144 +1472,208 @@ for (let i = 0; i < 22; i++) {
     particle.style.animationDelay =
         Math.random() * 8 + "s";
 
-    particle.style.width =
-        (2 + Math.random() * 4) + "px";
+    const size =
+        2 + Math.random() * 4;
 
-    particle.style.height =
-        particle.style.width;
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
 
     particles.appendChild(particle);
 }
 
 
-/* =========================================
-   START INVITATION
-   FIRST TOUCH / CLICK
-========================================= */
+// ==========================================
+// START INVITATION
+// ==========================================
 
-const opening =
-    document.getElementById("opening");
+function startInvitation(event) {
 
-const videoWrapper =
-    document.getElementById("videoWrapper");
-
-const video =
-    document.getElementById("doorVideo");
-
-const content =
-    document.getElementById("mainContent");
-
-let started = false;
-
-function startInvitation() {
-
+    // منع التشغيل أكثر من مرة
     if (started) return;
 
     started = true;
 
-    /*
-       إظهار الفيديو
-    */
+    console.log("Invitation started");
+
+
+    // ======================================
+    // إظهار الفيديو أولًا
+    // ======================================
 
     videoWrapper.classList.add("active");
 
-    /*
-       تشغيل الفيديو
-    */
 
-    video.play().catch(() => {
-
-        /*
-           بعض المتصفحات قد تمنع التشغيل
-           لكن بما أن التشغيل جاء من Touch
-           المفروض يشتغل.
-        */
-
-        console.log("Video playback was blocked.");
-
-    });
-
-
-    /*
-       إخفاء شاشة خبط الباب
-    */
+    // ======================================
+    // إخفاء شاشة "خبط على الباب"
+    // ======================================
 
     setTimeout(() => {
 
         opening.classList.add("hide");
 
-    }, 150);
+    }, 100);
 
 
-    /*
-       تشغيل محتوى الدعوة
-       بعد انتهاء الفيديو
-    */
+    // ======================================
+    // تجهيز الفيديو
+    // ======================================
 
-    video.addEventListener(
-        "ended",
-        finishVideo,
-        { once: true }
-    );
+    video.currentTime = 0;
+
+    video.muted = true;
+
+    video.playsInline = true;
+
+
+    // ======================================
+    // تشغيل الفيديو
+    // ======================================
+
+    const playPromise = video.play();
+
+
+    if (playPromise !== undefined) {
+
+        playPromise
+            .then(() => {
+
+                console.log("Video is playing successfully");
+
+            })
+            .catch((error) => {
+
+                console.error(
+                    "Video could not play:",
+                    error
+                );
+
+                /*
+                 لو الفيديو لم يعمل،
+                 نرجع شاشة البداية
+                */
+
+                started = false;
+
+                opening.classList.remove("hide");
+
+                videoWrapper.classList.remove("active");
+
+                alert(
+                    "الفيديو لم يعمل.\n\n" +
+                    "تأكد أن ملف vedioo0.mp4 موجود بجانب ملف HTML."
+                );
+
+            });
+
+    }
+
 }
 
 
-/* =========================================
-   VIDEO FINISHED
-========================================= */
+// ==========================================
+// TOUCH
+// ==========================================
 
-function finishVideo() {
-
-    /*
-       إخفاء الفيديو
-    */
-
-    videoWrapper.style.opacity = "0";
-
-    videoWrapper.style.transform =
-        "scale(1.04)";
-
-    setTimeout(() => {
-
-        videoWrapper.classList.remove("active");
-
-        /*
-           إظهار الصفحة
-        */
-
-        content.classList.add("active");
-
-        /*
-           السماح بالـ scroll
-        */
-
-        document.body.style.overflowX = "hidden";
-
-    }, 800);
-}
-
-
-/*
-   أول Touch أو Click
-*/
+// أول لمسة على الشاشة
 
 opening.addEventListener(
-    "pointerdown",
+    "touchstart",
     startInvitation,
-    { once: true }
+    {
+        passive: true,
+        once: true
+    }
 );
 
 
-/* =========================================
-   COUNTDOWN
-========================================= */
+// ==========================================
+// CLICK
+// ==========================================
 
-/*
-   غيّر التاريخ هنا إلى موعد الفرح الحقيقي
-*/
+// للكمبيوتر
+
+opening.addEventListener(
+    "click",
+    startInvitation,
+    {
+        once: true
+    }
+);
+
+
+// ==========================================
+// VIDEO ENDED
+// ==========================================
+
+video.addEventListener(
+    "ended",
+    function () {
+
+        console.log("Video finished");
+
+
+        // ==================================
+        // إخفاء الفيديو
+        // ==================================
+
+        videoWrapper.style.opacity = "0";
+
+        videoWrapper.style.transform =
+            "scale(1.05)";
+
+
+        // ==================================
+        // إظهار الدعوة
+        // ==================================
+
+        setTimeout(() => {
+
+            videoWrapper.classList.remove("active");
+
+            content.classList.add("active");
+
+            console.log(
+                "Wedding invitation displayed"
+            );
+
+        }, 900);
+
+    }
+);
+
+
+// ==========================================
+// VIDEO ERROR
+// ==========================================
+
+video.addEventListener(
+    "error",
+    function () {
+
+        console.error(
+            "Video file error:",
+            video.error
+        );
+
+        alert(
+            "حصل خطأ في تحميل الفيديو.\n\n" +
+            "تأكد من أن اسم الفيديو:\n" +
+            "vedioo0.mp4\n\n" +
+            "وأنه موجود في نفس فولدر ملف HTML."
+        );
+
+    }
+);
+
+
+// ==========================================
+// COUNTDOWN
+// ==========================================
 
 const weddingDate =
-    new Date("September 16, 2026 19:30:00").getTime();
+    new Date(
+        "September 16, 2026 19:30:00"
+    ).getTime();
 
 
 function updateCountdown() {
@@ -1612,22 +1685,36 @@ function updateCountdown() {
         weddingDate - now;
 
 
+    // لو التاريخ انتهى
+
     if (distance <= 0) {
 
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
+        document.getElementById("days")
+            .textContent = "00";
+
+        document.getElementById("hours")
+            .textContent = "00";
+
+        document.getElementById("minutes")
+            .textContent = "00";
+
+        document.getElementById("seconds")
+            .textContent = "00";
 
         return;
     }
 
+
+    // الأيام
 
     const days =
         Math.floor(
             distance /
             (1000 * 60 * 60 * 24)
         );
+
+
+    // الساعات
 
     const hours =
         Math.floor(
@@ -1636,12 +1723,18 @@ function updateCountdown() {
             (1000 * 60 * 60)
         );
 
+
+    // الدقائق
+
     const minutes =
         Math.floor(
             (distance %
             (1000 * 60 * 60)) /
             (1000 * 60)
         );
+
+
+    // الثواني
 
     const seconds =
         Math.floor(
@@ -1651,23 +1744,31 @@ function updateCountdown() {
         );
 
 
+    // تحديث الشاشة
+
     document.getElementById("days")
         .textContent =
         String(days).padStart(2, "0");
+
 
     document.getElementById("hours")
         .textContent =
         String(hours).padStart(2, "0");
 
+
     document.getElementById("minutes")
         .textContent =
         String(minutes).padStart(2, "0");
 
+
     document.getElementById("seconds")
         .textContent =
         String(seconds).padStart(2, "0");
+
 }
 
+
+// تشغيل الـ Countdown
 
 updateCountdown();
 
