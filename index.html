@@ -1,0 +1,1684 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>محمد & زينب | Wedding Invitation</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --gold: #c8a45d;
+    --gold-light: #ead7a4;
+    --cream: #f8f3ea;
+    --dark: #171513;
+    --brown: #60472e;
+    --text: #4d443b;
+}
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0b0b;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: "Cairo", sans-serif;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: auto;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 20% 10%, rgba(200,164,93,.12), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(200,164,93,.10), transparent 35%),
+        linear-gradient(145deg, #faf7f0, #eee5d7);
+
+    box-shadow: 0 0 80px rgba(0,0,0,.35);
+}
+
+/* =========================
+   OPENING SCREEN
+========================= */
+
+.opening {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: 430px;
+    margin: auto;
+
+    z-index: 100;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(255,255,255,.08),
+        transparent 40%),
+        linear-gradient(
+            145deg,
+            #151311,
+            #282019
+        );
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.4s cubic-bezier(.77,0,.18,1),
+        visibility 1.4s;
+}
+
+.opening.hide {
+    opacity: 0;
+    transform: scale(1.08);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Golden glow */
+
+.opening::before {
+    content: "";
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background: rgba(200,164,93,.12);
+
+    filter: blur(80px);
+
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0%,100% {
+        transform: scale(.8);
+        opacity: .4;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: .8;
+    }
+}
+
+/* =========================
+   OPENING CONTENT
+========================= */
+
+.opening-content {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    animation: openingAppear 1.5s ease forwards;
+}
+
+@keyframes openingAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Small text */
+
+.opening-small {
+    font-family: "Playfair Display", serif;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    color: var(--gold-light);
+
+    margin-bottom: 25px;
+}
+
+/* Names */
+
+.opening-names {
+
+    font-family: "Aref Ruqaa", serif;
+
+    font-size: 46px;
+
+    color: #f5e7c4;
+
+    line-height: 1.2;
+
+    text-shadow:
+        0 0 20px rgba(200,164,93,.25);
+
+    margin-bottom: 28px;
+}
+
+/* divider */
+
+.opening-divider {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-bottom: 35px;
+}
+
+.opening-divider span {
+
+    width: 45px;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--gold)
+    );
+}
+
+.opening-divider span:last-child {
+
+    background: linear-gradient(
+        90deg,
+        var(--gold),
+        transparent
+    );
+}
+
+.opening-divider i {
+
+    width: 7px;
+    height: 7px;
+
+    background: var(--gold);
+
+    transform: rotate(45deg);
+}
+
+/* =========================
+   KNOCK AREA
+========================= */
+
+.knock-wrapper {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 17px;
+}
+
+/* Door */
+
+.door {
+
+    width: 92px;
+    height: 118px;
+
+    border: 1px solid rgba(234,215,164,.55);
+
+    border-radius: 55px 55px 8px 8px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.015)
+        );
+
+    box-shadow:
+        inset 0 0 25px rgba(255,255,255,.04),
+        0 0 30px rgba(200,164,93,.08);
+
+    animation: doorFloat 3s ease-in-out infinite;
+}
+
+@keyframes doorFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Door handle */
+
+.door-handle {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 58px;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--gold-light);
+
+    box-shadow:
+        0 0 10px rgba(234,215,164,.6);
+}
+
+/* Knock icon */
+
+.knock {
+
+    font-size: 31px;
+
+    animation: knockAnimation 2s ease-in-out infinite;
+
+    transform-origin: 80% 80%;
+}
+
+@keyframes knockAnimation {
+
+    0%,45%,100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-22deg);
+    }
+
+    57% {
+        transform: rotate(16deg);
+    }
+
+    64% {
+        transform: rotate(-10deg);
+    }
+
+    71% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Knock text */
+
+.knock-text {
+
+    font-family: "Amiri", serif;
+
+    font-size: 22px;
+
+    color: #f4ead3;
+
+    animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+
+    0%,100% {
+        opacity: .65;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.knock-sub {
+
+    font-size: 11px;
+
+    color: rgba(255,255,255,.5);
+
+    letter-spacing: 1px;
+}
+
+/* Touch circle */
+
+.touch-indicator {
+
+    position: absolute;
+
+    bottom: 45px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid rgba(234,215,164,.5);
+
+    border-radius: 50%;
+
+    animation: touchPulse 2s infinite;
+}
+
+.touch-indicator::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 7px;
+
+    border-radius: 50%;
+
+    background: rgba(234,215,164,.35);
+}
+
+@keyframes touchPulse {
+
+    0% {
+        transform: translateX(-50%) scale(.8);
+        opacity: .3;
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   VIDEO
+========================= */
+
+.video-wrapper {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    max-width: 430px;
+
+    margin: auto;
+
+    z-index: 90;
+
+    background: #000;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
+
+.video-wrapper.active {
+
+    opacity: 1;
+
+    visibility: visible;
+}
+
+.video-wrapper video {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.content {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    padding: 55px 20px 50px;
+
+    color: var(--text);
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+}
+
+.content.active {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* Background particles */
+
+.particles {
+
+    position: fixed;
+
+    inset: 0;
+
+    max-width: 430px;
+
+    margin: auto;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+.particle {
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: rgba(200,164,93,.45);
+
+    animation:
+        particleMove linear infinite;
+}
+
+@keyframes particleMove {
+
+    from {
+        transform:
+            translateY(105vh)
+            scale(.3);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .8;
+    }
+
+    80% {
+        opacity: .5;
+    }
+
+    to {
+        transform:
+            translateY(-10vh)
+            scale(1.2);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 38px;
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition: 1s ease;
+}
+
+.content.active .hero {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.pre-title {
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    color: var(--gold);
+
+    margin-bottom: 14px;
+}
+
+.names {
+
+    font-family: "Aref Ruqaa", serif;
+
+    font-size: 45px;
+
+    line-height: 1.25;
+
+    background:
+        linear-gradient(
+            135deg,
+            #79552e,
+            #c8a45d,
+            #79552e
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    margin-bottom: 15px;
+}
+
+.hero-line {
+
+    width: 80px;
+
+    height: 1px;
+
+    margin: auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
+        );
+}
+
+/* =========================
+   ORNAMENT
+========================= */
+
+.ornament {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 20px 0;
+}
+
+.ornament span {
+
+    width: 35px;
+
+    height: 1px;
+
+    background: rgba(200,164,93,.5);
+}
+
+.ornament i {
+
+    width: 6px;
+
+    height: 6px;
+
+    background: var(--gold);
+
+    transform: rotate(45deg);
+}
+
+/* =========================
+   QURAN
+========================= */
+
+.quran {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 25px 18px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.55);
+
+    border:
+        1px solid rgba(200,164,93,.2);
+
+    box-shadow:
+        0 20px 50px rgba(80,55,30,.07);
+
+    backdrop-filter: blur(10px);
+
+    margin-bottom: 20px;
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition: 1s ease .2s;
+}
+
+.content.active .quran {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.quran-text {
+
+    font-family: "Amiri", serif;
+
+    font-size: 19px;
+
+    line-height: 2.1;
+
+    color: #51483f;
+}
+
+.quran-ref {
+
+    margin-top: 12px;
+
+    font-size: 10px;
+
+    color: var(--gold);
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   INTRO CARD
+========================= */
+
+.intro {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin: 25px 0;
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition: 1s ease .4s;
+}
+
+.content.active .intro {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.intro-title {
+
+    font-family: "Aref Ruqaa", serif;
+
+    font-size: 27px;
+
+    color: var(--brown);
+
+    margin-bottom: 8px;
+}
+
+.intro p {
+
+    font-size: 14px;
+
+    line-height: 2;
+
+    color: #766b60;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.details {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: grid;
+
+    gap: 14px;
+
+    margin-top: 25px;
+}
+
+.detail-card {
+
+    background:
+        rgba(255,255,255,.62);
+
+    border:
+        1px solid rgba(200,164,93,.18);
+
+    border-radius: 20px;
+
+    padding: 22px 18px;
+
+    box-shadow:
+        0 15px 40px rgba(60,40,20,.06);
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.content.active .detail-card:nth-child(1) {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+    transition-delay: .6s;
+}
+
+.content.active .detail-card:nth-child(2) {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+    transition-delay: .8s;
+}
+
+.detail-icon {
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
+}
+
+.detail-title {
+
+    font-family: "Aref Ruqaa", serif;
+
+    font-size: 22px;
+
+    color: var(--brown);
+
+    margin-bottom: 5px;
+}
+
+.detail-text {
+
+    font-size: 14px;
+
+    color: #756b61;
+
+    line-height: 1.9;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown-section {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 30px;
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition: 1s ease 1s;
+}
+
+.content.active .countdown-section {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.countdown-title {
+
+    font-family: "Aref Ruqaa", serif;
+
+    color: var(--brown);
+
+    font-size: 23px;
+
+    margin-bottom: 15px;
+}
+
+.countdown {
+
+    display: flex;
+
+    direction: ltr;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.time-box {
+
+    min-width: 62px;
+
+    padding: 12px 5px;
+
+    background: rgba(255,255,255,.6);
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(200,164,93,.2);
+}
+
+.time-number {
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 23px;
+
+    color: var(--brown);
+
+    display: block;
+}
+
+.time-label {
+
+    font-size: 9px;
+
+    color: #8b7d6d;
+
+    margin-top: 3px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 35px;
+
+    display: grid;
+
+    gap: 12px;
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition: 1s ease 1.2s;
+}
+
+.content.active .actions {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.btn {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 50px;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+}
+
+.btn-primary {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #76532f,
+            #c8a45d
+        );
+
+    box-shadow:
+        0 10px 25px rgba(118,83,47,.25);
+}
+
+.btn-secondary {
+
+    color: #76532f;
+
+    background: rgba(255,255,255,.65);
+
+    border: 1px solid rgba(200,164,93,.3);
+}
+
+.btn:active {
+
+    transform: scale(.97);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 50px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid rgba(200,164,93,.2);
+
+    font-family: "Amiri", serif;
+
+    color: #8b7b68;
+
+    font-size: 15px;
+}
+
+.footer-heart {
+
+    display: block;
+
+    font-size: 20px;
+
+    margin-top: 7px;
+
+    animation: heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 380px) {
+
+    .opening-names {
+        font-size: 40px;
+    }
+
+    .names {
+        font-size: 40px;
+    }
+
+    .quran-text {
+        font-size: 17px;
+    }
+
+    .time-box {
+        min-width: 57px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         OPENING SCREEN
+    ========================== -->
+
+    <div class="opening" id="opening">
+
+        <div class="opening-content">
+
+            <div class="opening-small">
+                WEDDING INVITATION
+            </div>
+
+            <div class="opening-names">
+                محمد & زينب
+            </div>
+
+            <div class="opening-divider">
+                <span></span>
+                <i></i>
+                <span></span>
+            </div>
+
+            <div class="knock-wrapper">
+
+                <div class="door">
+
+                    <div class="knock">
+                        👊
+                    </div>
+
+                    <div class="door-handle"></div>
+
+                </div>
+
+                <div class="knock-text">
+                    خَبِط على الباب
+                </div>
+
+                <div class="knock-sub">
+                    المس الشاشة لفتح الدعوة
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="touch-indicator"></div>
+
+    </div>
+
+
+    <!-- =========================
+         VIDEO
+    ========================== -->
+
+    <div class="video-wrapper" id="videoWrapper">
+
+        <video
+            id="doorVideo"
+            playsinline
+            preload="auto"
+        >
+
+            <source src="vedioo0.mp4" type="video/mp4">
+
+        </video>
+
+    </div>
+
+
+    <!-- =========================
+         PARTICLES
+    ========================== -->
+
+    <div class="particles" id="particles"></div>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="content" id="mainContent">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="pre-title">
+                WEDDING INVITATION
+            </div>
+
+            <h1 class="names">
+                محمد & زينب
+            </h1>
+
+            <div class="hero-line"></div>
+
+        </section>
+
+
+        <!-- QURAN -->
+
+        <section class="quran">
+
+            <div class="quran-text">
+
+                ﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم
+                مِّنْ أَنفُسِكُمْ أَزْوَاجًا
+                لِّتَسْكُنُوا إِلَيْهَا
+                وَجَعَلَ بَيْنَكُم مَّوَدَّةً
+                وَرَحْمَةً ﴾
+
+            </div>
+
+            <div class="quran-ref">
+                صدق الله العظيم
+            </div>
+
+        </section>
+
+
+        <!-- INTRO -->
+
+        <section class="intro">
+
+            <div class="ornament">
+                <span></span>
+                <i></i>
+                <span></span>
+            </div>
+
+            <h2 class="intro-title">
+                بكل حب وسعادة
+            </h2>
+
+            <p>
+                يسعدنا أن نشارككم أجمل لحظات حياتنا،
+                ونتشرف بوجودكم معنا لنحتفل سويًا
+                ببداية فصل جديد من قصتنا.
+            </p>
+
+        </section>
+
+
+        <!-- DETAILS -->
+
+        <section class="details">
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    🕊️
+                </div>
+
+                <div class="detail-title">
+                    موعد الحفل
+                </div>
+
+                <div class="detail-text">
+                    الجمعة<br>
+                    16 سبتمبر 2026<br>
+                    الساعة 7:30 مساءً
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    📍
+                </div>
+
+                <div class="detail-title">
+                    مكان الحفل
+                </div>
+
+                <div class="detail-text">
+                    القاعة الكبرى<br>
+                    Panorama October
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COUNTDOWN -->
+
+        <section class="countdown-section">
+
+            <div class="countdown-title">
+                العد التنازلي لليلة العمر
+            </div>
+
+            <div class="countdown">
+
+                <div class="time-box">
+
+                    <span
+                        class="time-number"
+                        id="days"
+                    >
+                        00
+                    </span>
+
+                    <span class="time-label">
+                        DAYS
+                    </span>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <span
+                        class="time-number"
+                        id="hours"
+                    >
+                        00
+                    </span>
+
+                    <span class="time-label">
+                        HOURS
+                    </span>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <span
+                        class="time-number"
+                        id="minutes"
+                    >
+                        00
+                    </span>
+
+                    <span class="time-label">
+                        MINUTES
+                    </span>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <span
+                        class="time-number"
+                        id="seconds"
+                    >
+                        00
+                    </span>
+
+                    <span class="time-label">
+                        SECONDS
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
+
+        <section class="actions">
+
+            <a
+                href="https://www.google.com/maps"
+                target="_blank"
+                class="btn btn-primary"
+            >
+                📍 فتح موقع القاعة
+            </a>
+
+            <a
+                href="https://wa.me/201000000000"
+                target="_blank"
+                class="btn btn-secondary"
+            >
+                💌 تأكيد الحضور عبر WhatsApp
+            </a>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            ننتظركم لنشارككم فرحتنا ❤️
+
+            <span class="footer-heart">
+                محمد & زينب
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   CREATE PARTICLES
+========================================= */
+
+const particles = document.getElementById("particles");
+
+for (let i = 0; i < 22; i++) {
+
+    const particle = document.createElement("div");
+
+    particle.className = "particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+        (7 + Math.random() * 8) + "s";
+
+    particle.style.animationDelay =
+        Math.random() * 8 + "s";
+
+    particle.style.width =
+        (2 + Math.random() * 4) + "px";
+
+    particle.style.height =
+        particle.style.width;
+
+    particles.appendChild(particle);
+}
+
+
+/* =========================================
+   START INVITATION
+   FIRST TOUCH / CLICK
+========================================= */
+
+const opening =
+    document.getElementById("opening");
+
+const videoWrapper =
+    document.getElementById("videoWrapper");
+
+const video =
+    document.getElementById("doorVideo");
+
+const content =
+    document.getElementById("mainContent");
+
+let started = false;
+
+function startInvitation() {
+
+    if (started) return;
+
+    started = true;
+
+    /*
+       إظهار الفيديو
+    */
+
+    videoWrapper.classList.add("active");
+
+    /*
+       تشغيل الفيديو
+    */
+
+    video.play().catch(() => {
+
+        /*
+           بعض المتصفحات قد تمنع التشغيل
+           لكن بما أن التشغيل جاء من Touch
+           المفروض يشتغل.
+        */
+
+        console.log("Video playback was blocked.");
+
+    });
+
+
+    /*
+       إخفاء شاشة خبط الباب
+    */
+
+    setTimeout(() => {
+
+        opening.classList.add("hide");
+
+    }, 150);
+
+
+    /*
+       تشغيل محتوى الدعوة
+       بعد انتهاء الفيديو
+    */
+
+    video.addEventListener(
+        "ended",
+        finishVideo,
+        { once: true }
+    );
+}
+
+
+/* =========================================
+   VIDEO FINISHED
+========================================= */
+
+function finishVideo() {
+
+    /*
+       إخفاء الفيديو
+    */
+
+    videoWrapper.style.opacity = "0";
+
+    videoWrapper.style.transform =
+        "scale(1.04)";
+
+    setTimeout(() => {
+
+        videoWrapper.classList.remove("active");
+
+        /*
+           إظهار الصفحة
+        */
+
+        content.classList.add("active");
+
+        /*
+           السماح بالـ scroll
+        */
+
+        document.body.style.overflowX = "hidden";
+
+    }, 800);
+}
+
+
+/*
+   أول Touch أو Click
+*/
+
+opening.addEventListener(
+    "pointerdown",
+    startInvitation,
+    { once: true }
+);
+
+
+/* =========================================
+   COUNTDOWN
+========================================= */
+
+/*
+   غيّر التاريخ هنا إلى موعد الفرح الحقيقي
+*/
+
+const weddingDate =
+    new Date("September 16, 2026 19:30:00").getTime();
+
+
+function updateCountdown() {
+
+    const now =
+        new Date().getTime();
+
+    const distance =
+        weddingDate - now;
+
+
+    if (distance <= 0) {
+
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        return;
+    }
+
+
+    const days =
+        Math.floor(
+            distance /
+            (1000 * 60 * 60 * 24)
+        );
+
+    const hours =
+        Math.floor(
+            (distance %
+            (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
+
+    const minutes =
+        Math.floor(
+            (distance %
+            (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+
+    const seconds =
+        Math.floor(
+            (distance %
+            (1000 * 60)) /
+            1000
+        );
+
+
+    document.getElementById("days")
+        .textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours")
+        .textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes")
+        .textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds")
+        .textContent =
+        String(seconds).padStart(2, "0");
+}
+
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+</script>
+
+</body>
+</html>
+```
